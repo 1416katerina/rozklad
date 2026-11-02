@@ -9,7 +9,10 @@ import {
   firebaseConfig, days, hours, createDefaultSchedule, stateLabel, nextState
 } from "./shared.js";
 
-const ADMIN_EMAIL = "1416katerina@gmail.com";
+const ADMIN_EMAILS = [
+  "1416katerina@gmail.com",
+  "fantomkatren@gmail.com"
+];
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -29,6 +32,21 @@ const saveMessage = document.getElementById("saveMessage");
 
 let schedule = createDefaultSchedule();
 let unsubscribeSchedule = null;
+
+function isAdmin(email) {
+  return ADMIN_EMAILS.includes((email || "").toLowerCase());
+}
+
+function authErrorMessage(error) {
+  const code = error?.code || "";
+  if (code.includes("invalid-credential")) return "Неправильний email або пароль.";
+  if (code.includes("user-not-found")) return "Користувача з такою поштою не знайдено.";
+  if (code.includes("wrong-password")) return "Неправильний пароль.";
+  if (code.includes("too-many-requests")) return "Забагато спроб входу. Спробуйте трохи пізніше.";
+  if (code.includes("operation-not-allowed")) return "У Firebase не увімкнено Email/Password.";
+  if (code.includes("network-request-failed")) return "Помилка мережі. Перевірте інтернет.";
+  return `Помилка входу: ${code || "невідома помилка"}`;
+}
 
 async function saveSchedule(){
   saveMessage.textContent = "Зберігаю...";
@@ -98,10 +116,17 @@ function render(){
 loginBtn.addEventListener("click", async () => {
   loginMessage.textContent = "";
   try{
-    await signInWithEmailAndPassword(auth, emailInput.value.trim(), passwordInput.value);
+    const email = emailInput.value.trim().toLowerCase();
+
+    if (!isAdmin(email)) {
+      loginMessage.textContent = "Ця пошта не має доступу адміністратора.";
+      return;
+    }
+
+    await signInWithEmailAndPassword(auth, email, passwordInput.value);
   }catch(error){
-    console.error(error);
-    loginMessage.textContent = "Не вдалося увійти. Перевірте email і пароль.";
+    console.error("Firebase auth error:", error);
+    loginMessage.textContent = authErrorMessage(error);
   }
 });
 
@@ -124,12 +149,13 @@ resetBtn.addEventListener("click", async () => {
 });
 
 onAuthStateChanged(auth, user => {
-  if(user && user.email === ADMIN_EMAIL){
+  if(user && isAdmin(user.email)){
     loginPanel.classList.add("hidden");
     adminPanel.classList.remove("hidden");
     adminUser.textContent = `Ви увійшли як ${user.email}`;
 
     if(unsubscribeSchedule) unsubscribeSchedule();
+
     unsubscribeSchedule = onSnapshot(doc(db, "schedule", "current"), async snapshot => {
       if(snapshot.exists() && snapshot.data().days){
         schedule = snapshot.data().days;
@@ -142,7 +168,12 @@ onAuthStateChanged(auth, user => {
   }else{
     loginPanel.classList.remove("hidden");
     adminPanel.classList.add("hidden");
-    if(user) signOut(auth);
+
+    if(user && !isAdmin(user.email)) {
+      loginMessage.textContent = "Цей акаунт не має доступу адміністратора.";
+      signOut(auth);
+    }
+
     if(unsubscribeSchedule){
       unsubscribeSchedule();
       unsubscribeSchedule = null;
