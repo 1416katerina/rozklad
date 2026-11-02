@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyC9wbYhGRJUESS-nK4sbPH2CcQUbvuTmyM",
   authDomain: "rozklad-9f809.firebaseapp.com",
   projectId: "rozklad-9f809",
@@ -6,6 +6,7 @@ const firebaseConfig = {
   messagingSenderId: "654912835999",
   appId: "1:654912835999:web:89a3c8c41d45ae4fe42daa"
 };
+
 export const days = [
   {name:"Понеділок",emoji:"🌿"},
   {name:"Вівторок",emoji:"☀️"},
