@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f6f7fb">
   <title>Розклад занять 🦝</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="public-style.css">
 </head>
 <body>
   <div class="app">
+
     <header class="hero">
       <div class="brand">
         <div class="logo">🦝</div>
@@ -19,65 +20,72 @@
       </div>
 
       <p class="lead">
-        Зелені віконця — <strong>вільний час</strong>, червоні — <strong>вже заброньовано</strong>.
-        Сірий прочерк означає, що цей час недоступний.
+        Оберіть день тижня та перегляньте доступний час.
+        Зелені віконця — <strong>вільний час</strong>,
+        червоні — <strong>вже заброньовано</strong>,
+        сірий прочерк — час недоступний.
       </p>
 
-      <div class="contact-note">
-        <span>💬</span>
-        <div>
-          <strong>Щодо питань можна писати</strong>
-          <small>щодня з 9:00 до 19:00</small>
+      <div class="top-info">
+        <div class="contact-line">
+          <div class="contact-item">
+            <span class="contact-icon">📱</span>
+            <div>
+              <small>Телефон</small>
+              <a href="tel:+380666491169">+38 066 649 11 69</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon">✈️</span>
+            <div>
+              <small>Telegram</small>
+              <span>+38 066 649 11 69</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon">💜</span>
+            <div>
+              <small>Viber</small>
+              <span>+38 066 649 11 69</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <small>Email</small>
+              <a href="mailto:1416katerina@gmail.com">1416katerina@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="write-hours">
+          💬 Щодо питань можна писати щодня з <strong>9:00 до 19:00</strong>
         </div>
       </div>
     </header>
 
-    <section class="toolbar">
-      <button id="allFilterBtn" class="filter active">Усі</button>
-      <button id="freeFilterBtn" class="filter">Лише вільні</button>
-      <div class="online-pill" id="onlineStatus">● Підключення...</div>
-    </section>
-
-    <main id="daysGrid" class="days-grid"></main>
-
-    <section class="contacts">
-      <span class="badge">зв'язок</span>
-      <h2>Контакти</h2>
-      <p>Щодо запису та запитань можна писати щодня з 9:00 до 19:00.</p>
-
-      <div class="contact-list">
-        <div class="contact-item">
-          <span class="contact-symbol">📱</span>
-          <div>
-            <span class="contact-label">Телефон</span>
-            <a href="tel:+380666491169">+38 066 649 11 69</a>
-          </div>
+    <section class="schedule-shell">
+      <div class="schedule-head">
+        <div>
+          <span class="badge">вільний час</span>
+          <h2>Оберіть день</h2>
+          <p>Натисніть на день тижня, щоб побачити години.</p>
         </div>
 
-        <div class="contact-item">
-          <span class="contact-symbol">✈️</span>
-          <div>
-            <span class="contact-label">Telegram</span>
-            <span>+38 066 649 11 69</span>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <span class="contact-symbol">💜</span>
-          <div>
-            <span class="contact-label">Viber</span>
-            <span>+38 066 649 11 69</span>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <span class="contact-symbol">✉️</span>
-          <div>
-            <span class="contact-label">Email</span>
-            <a href="mailto:1416katerina@gmail.com">1416katerina@gmail.com</a>
-          </div>
-        </div>
+        <div class="online-pill" id="onlineStatus">● Підключення...</div>
       </div>
+
+      <nav id="dayTabs" class="day-tabs" aria-label="Дні тижня"></nav>
+
+      <div class="filters-row">
+        <button id="allFilterBtn" class="filter active">Усі години</button>
+        <button id="freeFilterBtn" class="filter">Лише вільні</button>
+      </div>
+
+      <main id="dayContent" class="day-content"></main>
     </section>
 
     <footer>
