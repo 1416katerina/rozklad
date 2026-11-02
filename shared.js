@@ -6,7 +6,6 @@ export const firebaseConfig = {
   messagingSenderId: "654912835999",
   appId: "1:654912835999:web:89a3c8c41d45ae4fe42daa"
 };
-
 export const days = [
   {name:"Понеділок",emoji:"🌿"},
   {name:"Вівторок",emoji:"☀️"},
