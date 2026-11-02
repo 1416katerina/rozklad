@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f7fb">
   <title>Розклад занять 🦝</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -34,20 +35,57 @@
     <section class="toolbar">
       <button id="allFilterBtn" class="filter active">Усі</button>
       <button id="freeFilterBtn" class="filter">Лише вільні</button>
+      <div class="online-pill" id="onlineStatus">● Підключення...</div>
     </section>
 
     <main id="daysGrid" class="days-grid"></main>
 
     <section class="contacts">
       <span class="badge">зв'язок</span>
-      <h2>Хочете записатися?</h2>
-      <p>Напишіть мені та вкажіть зручний день і час із зелених віконець.</p>
-      <div class="placeholder">Телефон, Telegram і Viber додамо наступним кроком</div>
+      <h2>Контакти</h2>
+      <p>Щодо запису та запитань можна писати щодня з 9:00 до 19:00.</p>
+
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-symbol">📱</span>
+          <div>
+            <span class="contact-label">Телефон</span>
+            <a href="tel:+380666491169">+38 066 649 11 69</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-symbol">✈️</span>
+          <div>
+            <span class="contact-label">Telegram</span>
+            <span>+38 066 649 11 69</span>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-symbol">💜</span>
+          <div>
+            <span class="contact-label">Viber</span>
+            <span>+38 066 649 11 69</span>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-symbol">✉️</span>
+          <div>
+            <span class="contact-label">Email</span>
+            <a href="mailto:1416katerina@gmail.com">1416katerina@gmail.com</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer>🦝 Розклад занять</footer>
+    <footer>
+      <span>🦝 Розклад занять</span>
+      <a href="admin.html" class="admin-link">Адміністратор</a>
+    </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="public.js"></script>
 </body>
 </html>

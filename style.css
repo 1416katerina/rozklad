@@ -1,23 +1,26 @@
 *{box-sizing:border-box}
 :root{
   --bg:#f6f7fb;--text:#202432;--muted:#73798a;--line:#e7e8ef;
-  --purple:#706df6;--purple-soft:#efefff;
+  --purple:#706df6;--purple-soft:#efefff;--purple-dark:#514cc7;
   --green:#25b56c;--green-bg:#dff8ea;--green-text:#147147;
   --red:#ee5a6d;--red-bg:#ffe1e6;--red-text:#a23446;
   --gray:#aab0bc;--gray-bg:#f0f1f5;--gray-text:#737987;
   --shadow:0 18px 55px rgba(44,49,72,.10);
 }
+html{scroll-behavior:smooth}
 body{
-  margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text);
+  margin:0;min-height:100vh;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text);
   background:
     radial-gradient(circle at 10% 10%,rgba(166,186,255,.22),transparent 26%),
     radial-gradient(circle at 90% 12%,rgba(255,215,128,.18),transparent 24%),
+    radial-gradient(circle at 80% 85%,rgba(162,244,208,.15),transparent 23%),
     var(--bg);
 }
-button{font:inherit}
+button,input{font:inherit}
+a{color:inherit}
 .app{width:min(1240px,calc(100% - 24px));margin:auto;padding:28px 0 36px}
-.hero,.toolbar,.day-card,.contacts{
-  background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);
+.hero,.toolbar,.day-card,.contacts,.login-panel,.admin-toolbar,.save-message{
+  background:rgba(255,255,255,.91);border:1px solid rgba(255,255,255,.96);
   box-shadow:var(--shadow);backdrop-filter:blur(12px)
 }
 .hero{border-radius:30px;padding:28px;margin-bottom:14px}
@@ -25,8 +28,7 @@ button{font:inherit}
 .logo{
   width:86px;height:86px;border-radius:24px;display:grid;place-items:center;
   font-size:50px;background:linear-gradient(145deg,#fff,#f3f1ff);
-  box-shadow:0 12px 28px rgba(88,82,154,.14);
-  animation:bob 4s ease-in-out infinite
+  box-shadow:0 12px 28px rgba(88,82,154,.14);animation:bob 4s ease-in-out infinite
 }
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
 .badge{
@@ -42,56 +44,118 @@ h1{margin:0;font-size:clamp(38px,6vw,64px);line-height:.98;letter-spacing:-2.5px
 .contact-note>span{font-size:22px}
 .contact-note div{display:flex;flex-direction:column;gap:3px}
 .contact-note small{color:var(--muted)}
-.toolbar{border-radius:22px;padding:12px;display:flex;gap:8px;margin-bottom:14px}
-.filter{
-  border:0;border-radius:14px;padding:10px 14px;font-weight:800;cursor:pointer;
-  background:#f3f4f8;color:#555b6b;transition:.18s
+.toolbar{
+  border-radius:22px;padding:12px;display:flex;gap:8px;margin-bottom:14px;
+  align-items:center;flex-wrap:wrap
 }
-.filter:hover{transform:translateY(-2px)}
-.filter.active{background:var(--purple-soft);color:#514cc7;box-shadow:inset 0 0 0 1px #d7d4ff}
+.filter,.main-btn,.soft-btn{
+  border:0;border-radius:14px;padding:10px 14px;font-weight:800;cursor:pointer;transition:.18s
+}
+.filter{background:#f3f4f8;color:#555b6b}
+.filter:hover,.main-btn:hover,.soft-btn:hover{transform:translateY(-2px)}
+.filter.active{background:var(--purple-soft);color:var(--purple-dark);box-shadow:inset 0 0 0 1px #d7d4ff}
+.online-pill{
+  margin-left:auto;color:#24835b;background:#ecfff6;border:1px solid #ccefdc;
+  border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800
+}
 .days-grid{display:grid;gap:14px}
 .day-card{border-radius:26px;padding:18px;transition:.18s}
 .day-card:hover{transform:translateY(-2px);box-shadow:0 22px 60px rgba(44,49,72,.13)}
 .day-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:14px}
 .day-left{display:flex;align-items:center;gap:12px}
-.day-icon{
-  width:44px;height:44px;border-radius:15px;display:grid;place-items:center;font-size:20px;
-  background:#fff;border:1px solid var(--line)
-}
+.day-icon{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;font-size:20px;background:#fff;border:1px solid var(--line)}
 .day-name{margin:0;font-size:22px}
 .day-sub{color:var(--muted);font-size:12px;margin-top:3px}
 .day-counts{display:flex;gap:8px;flex-wrap:wrap}
-.count{
-  padding:8px 10px;border-radius:999px;font-size:12px;font-weight:800;
-  border:1px solid var(--line);background:#fff
-}
+.count{padding:8px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid var(--line);background:#fff}
 .count.free{color:var(--green-text)} .count.booked{color:var(--red-text)}
 .slot-list{display:flex;flex-wrap:wrap;gap:10px}
 .slot{
-  min-width:92px;border-radius:17px;padding:12px 14px;font-weight:900;transition:.16s;
-  box-shadow:0 8px 18px rgba(44,49,72,.08)
+  min-width:92px;border:0;border-radius:17px;padding:12px 14px;font-weight:900;transition:.16s;
+  box-shadow:0 8px 18px rgba(44,49,72,.08);position:relative
 }
 .slot:hover{transform:translateY(-4px) scale(1.035)}
-.slot .time{font-size:16px}
-.slot .state{display:block;margin-top:6px;font-size:10px;text-transform:uppercase;letter-spacing:.07em}
+.slot .time{font-size:16px}.slot .state{display:block;margin-top:6px;font-size:10px;text-transform:uppercase;letter-spacing:.07em}
 .slot.free{background:var(--green-bg);color:var(--green-text)}
 .slot.booked{background:var(--red-bg);color:var(--red-text)}
 .slot.unavailable{background:var(--gray-bg);color:var(--gray-text)}
 .slot.unavailable .state{font-size:18px;line-height:.8}
-.empty{
-  color:var(--muted);background:#f8f9fc;border:1px dashed #d9dce6;
-  border-radius:16px;padding:14px;font-size:13px
+.admin-slot{cursor:pointer}
+.admin-slot:hover::after{
+  content:"";position:absolute;inset:-3px;border:2px solid rgba(112,109,246,.65);
+  border-radius:20px;box-shadow:0 0 0 6px rgba(112,109,246,.12)
 }
+.empty{color:var(--muted);background:#f8f9fc;border:1px dashed #d9dce6;border-radius:16px;padding:14px;font-size:13px}
 .contacts{margin-top:16px;border-radius:26px;padding:22px}
-.contacts h2{margin:0 0 8px;font-size:28px}
-.contacts p{margin:0 0 14px;color:var(--muted)}
-.placeholder{display:inline-block;background:#f3f4f8;color:#74798a;padding:12px 14px;border-radius:14px;font-size:13px}
-footer{text-align:center;color:#7d8291;font-size:13px;padding-top:16px}
+.contacts h2{margin:0 0 8px;font-size:28px}.contacts p{margin:0 0 14px;color:var(--muted)}
+.contact-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px 18px;
+  margin-top:16px
+}
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 2px;
+  border-bottom:1px solid var(--line)
+}
+.contact-symbol{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  flex:none
+}
+.contact-item>div{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0
+}
+.contact-label{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700
+}
+.contact-item a,
+.contact-item div>span:last-child{
+  color:var(--text);
+  text-decoration:none;
+  font-weight:700;
+  overflow-wrap:anywhere
+}
+.contact-item a:hover{
+  color:var(--purple-dark)
+}
+footer{display:flex;justify-content:space-between;align-items:center;color:#7d8291;font-size:13px;padding:16px 4px 0}
+.admin-link{opacity:.45;text-decoration:none;font-size:11px}
+.login-panel{max-width:520px;margin:0 auto;border-radius:26px;padding:24px}
+.login-panel h2{margin-top:0}
+.login-panel label{display:block;font-weight:700;margin:14px 0 6px}
+.login-panel input{
+  width:100%;border:1px solid var(--line);border-radius:14px;padding:12px 13px;
+  outline:none;background:#fff
+}
+.login-panel input:focus{border-color:#aaa7ff;box-shadow:0 0 0 4px rgba(112,109,246,.10)}
+.main-btn{background:linear-gradient(135deg,#706df6,#8c7cff);color:white;margin-top:14px}
+.soft-btn{background:#f3f4f8;color:#555b6b}
+.message{margin-top:12px;color:var(--red-text);font-size:13px}
+.hidden{display:none!important}
+.admin-toolbar{
+  border-radius:22px;padding:14px 16px;margin-bottom:12px;display:flex;
+  justify-content:space-between;gap:14px;align-items:center
+}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap}
+.small-muted{font-size:12px;color:var(--muted);margin-top:3px}
+.save-message{border-radius:18px;padding:11px 14px;margin-bottom:14px;color:#24835b;font-size:13px}
 @media(max-width:700px){
   .app{width:min(100% - 14px,1240px);padding-top:12px}
-  .hero{padding:18px;border-radius:24px}
-  .brand{align-items:flex-start}
-  .logo{width:70px;height:70px;font-size:42px}
-  .day-head{align-items:flex-start;flex-direction:column}
-  .slot{min-width:82px;padding:11px 12px}
+  .hero{padding:18px;border-radius:24px}.brand{align-items:flex-start}
+  .logo{width:70px;height:70px;font-size:42px}.day-head{align-items:flex-start;flex-direction:column}
+  .slot{min-width:82px;padding:11px 12px}.online-pill{margin-left:0}
+  .admin-toolbar{align-items:flex-start;flex-direction:column}
+  footer{flex-direction:column;gap:8px}.contact-list{grid-template-columns:1fr}
 }
