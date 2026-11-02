@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Розклад занять 🦝</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="brand">
+        <div class="logo">🦝</div>
+        <div>
+          <span class="badge">мій графік</span>
+          <h1>Розклад занять</h1>
+        </div>
+      </div>
+
+      <p class="lead">
+        Зелені віконця — <strong>вільний час</strong>, червоні — <strong>вже заброньовано</strong>.
+        Сірий прочерк означає, що цей час недоступний.
+      </p>
+
+      <div class="contact-note">
+        <span>💬</span>
+        <div>
+          <strong>Щодо питань можна писати</strong>
+          <small>щодня з 9:00 до 19:00</small>
+        </div>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <button id="allFilterBtn" class="filter active">Усі</button>
+      <button id="freeFilterBtn" class="filter">Лише вільні</button>
+    </section>
+
+    <main id="daysGrid" class="days-grid"></main>
+
+    <section class="contacts">
+      <span class="badge">зв'язок</span>
+      <h2>Хочете записатися?</h2>
+      <p>Напишіть мені та вкажіть зручний день і час із зелених віконець.</p>
+      <div class="placeholder">Телефон, Telegram і Viber додамо наступним кроком</div>
+    </section>
+
+    <footer>🦝 Розклад занять</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

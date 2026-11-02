@@ -1,0 +1,97 @@
+*{box-sizing:border-box}
+:root{
+  --bg:#f6f7fb;--text:#202432;--muted:#73798a;--line:#e7e8ef;
+  --purple:#706df6;--purple-soft:#efefff;
+  --green:#25b56c;--green-bg:#dff8ea;--green-text:#147147;
+  --red:#ee5a6d;--red-bg:#ffe1e6;--red-text:#a23446;
+  --gray:#aab0bc;--gray-bg:#f0f1f5;--gray-text:#737987;
+  --shadow:0 18px 55px rgba(44,49,72,.10);
+}
+body{
+  margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text);
+  background:
+    radial-gradient(circle at 10% 10%,rgba(166,186,255,.22),transparent 26%),
+    radial-gradient(circle at 90% 12%,rgba(255,215,128,.18),transparent 24%),
+    var(--bg);
+}
+button{font:inherit}
+.app{width:min(1240px,calc(100% - 24px));margin:auto;padding:28px 0 36px}
+.hero,.toolbar,.day-card,.contacts{
+  background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);
+  box-shadow:var(--shadow);backdrop-filter:blur(12px)
+}
+.hero{border-radius:30px;padding:28px;margin-bottom:14px}
+.brand{display:flex;gap:18px;align-items:center}
+.logo{
+  width:86px;height:86px;border-radius:24px;display:grid;place-items:center;
+  font-size:50px;background:linear-gradient(145deg,#fff,#f3f1ff);
+  box-shadow:0 12px 28px rgba(88,82,154,.14);
+  animation:bob 4s ease-in-out infinite
+}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+.badge{
+  display:inline-block;background:var(--purple-soft);color:#5752c7;border-radius:999px;
+  padding:7px 11px;font-size:12px;font-weight:800;margin-bottom:8px
+}
+h1{margin:0;font-size:clamp(38px,6vw,64px);line-height:.98;letter-spacing:-2.5px}
+.lead{color:var(--muted);font-size:17px;line-height:1.7;max-width:900px}
+.contact-note{
+  display:inline-flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);
+  padding:12px 15px;border-radius:18px
+}
+.contact-note>span{font-size:22px}
+.contact-note div{display:flex;flex-direction:column;gap:3px}
+.contact-note small{color:var(--muted)}
+.toolbar{border-radius:22px;padding:12px;display:flex;gap:8px;margin-bottom:14px}
+.filter{
+  border:0;border-radius:14px;padding:10px 14px;font-weight:800;cursor:pointer;
+  background:#f3f4f8;color:#555b6b;transition:.18s
+}
+.filter:hover{transform:translateY(-2px)}
+.filter.active{background:var(--purple-soft);color:#514cc7;box-shadow:inset 0 0 0 1px #d7d4ff}
+.days-grid{display:grid;gap:14px}
+.day-card{border-radius:26px;padding:18px;transition:.18s}
+.day-card:hover{transform:translateY(-2px);box-shadow:0 22px 60px rgba(44,49,72,.13)}
+.day-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:14px}
+.day-left{display:flex;align-items:center;gap:12px}
+.day-icon{
+  width:44px;height:44px;border-radius:15px;display:grid;place-items:center;font-size:20px;
+  background:#fff;border:1px solid var(--line)
+}
+.day-name{margin:0;font-size:22px}
+.day-sub{color:var(--muted);font-size:12px;margin-top:3px}
+.day-counts{display:flex;gap:8px;flex-wrap:wrap}
+.count{
+  padding:8px 10px;border-radius:999px;font-size:12px;font-weight:800;
+  border:1px solid var(--line);background:#fff
+}
+.count.free{color:var(--green-text)} .count.booked{color:var(--red-text)}
+.slot-list{display:flex;flex-wrap:wrap;gap:10px}
+.slot{
+  min-width:92px;border-radius:17px;padding:12px 14px;font-weight:900;transition:.16s;
+  box-shadow:0 8px 18px rgba(44,49,72,.08)
+}
+.slot:hover{transform:translateY(-4px) scale(1.035)}
+.slot .time{font-size:16px}
+.slot .state{display:block;margin-top:6px;font-size:10px;text-transform:uppercase;letter-spacing:.07em}
+.slot.free{background:var(--green-bg);color:var(--green-text)}
+.slot.booked{background:var(--red-bg);color:var(--red-text)}
+.slot.unavailable{background:var(--gray-bg);color:var(--gray-text)}
+.slot.unavailable .state{font-size:18px;line-height:.8}
+.empty{
+  color:var(--muted);background:#f8f9fc;border:1px dashed #d9dce6;
+  border-radius:16px;padding:14px;font-size:13px
+}
+.contacts{margin-top:16px;border-radius:26px;padding:22px}
+.contacts h2{margin:0 0 8px;font-size:28px}
+.contacts p{margin:0 0 14px;color:var(--muted)}
+.placeholder{display:inline-block;background:#f3f4f8;color:#74798a;padding:12px 14px;border-radius:14px;font-size:13px}
+footer{text-align:center;color:#7d8291;font-size:13px;padding-top:16px}
+@media(max-width:700px){
+  .app{width:min(100% - 14px,1240px);padding-top:12px}
+  .hero{padding:18px;border-radius:24px}
+  .brand{align-items:flex-start}
+  .logo{width:70px;height:70px;font-size:42px}
+  .day-head{align-items:flex-start;flex-direction:column}
+  .slot{min-width:82px;padding:11px 12px}
+}
